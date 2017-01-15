@@ -22,15 +22,15 @@ $tsql =
 "INSERT INTO ".dPgetConfig('dbprefix','')."tickets (author,subject,priority,body,timestamp,type, ticket_company, ticket_project) ".
 "VALUES('$author', '".addslashes($subject)."','$priority','".addslashes($description)."',UNIX_TIMESTAMP(),'Open', $ticket_company, $ticket_project)";
 
-$rc = mysql_query($tsql);
+$rc = db_exec($tsql);
 
 
-if (mysql_errno()) {
-	$AppUI->setMsg(mysql_error());
+if (!$rc) {
+	$AppUI->setMsg(db_error());
 } else {
 	$AppUI->setMsg("Ticket added");
 	
-	$ticket = mysql_insert_id();
+	$ticket = db_insert_id();
 	//Emailing notifications.
 	$boundary = "_lkqwkASDHASK89271893712893";
 	$message = "--$boundary\n";

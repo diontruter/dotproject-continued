@@ -20,9 +20,9 @@ function fatal_error ($reason) {
 
 /* do a MySQL query */
 function do_query ($query) {
-	$result = @mysql_query($query);
+	$result = @db_exec($query);
 	if (!$result) {
-		fatal_error("A database query error has occurred!<br>".mysql_error());
+		fatal_error("A database query error has occurred!<br>".db_error());
 	} else {
 		return($result);
 	}
@@ -33,16 +33,18 @@ function do_query ($query) {
 function query2result ($query) {
 
 	$result = do_query($query);
-	$row = @mysql_result($result, 0);
-	return($row);
-
+    $array = db_fetch_array($result);
+    if (empty($array)) {
+        return false;
+    }
+    return $array[0];
 }
 
 /* get result in numeric array */
 function query2array ($query) {
 
 	$result = do_query($query);
-	$row = @mysql_fetch_row($result);
+	$row = @db_fetch_array($result);
 	return($row);
 
 }
@@ -51,7 +53,7 @@ function query2array ($query) {
 function query2hash ($query) {
 
 	$result = do_query($query);
-	$row = @mysql_fetch_array($result);
+	$row = @db_fetch_assoc($result);
 	return($row);
 	
 }
@@ -59,7 +61,7 @@ function query2hash ($query) {
 /* get row of result */
 function result2row ($result) {
 
-    $row = @mysql_fetch_row($result);
+    $row = @db_fetch_array($result);
     return($row);
 
 }
@@ -67,7 +69,7 @@ function result2row ($result) {
 /* get row of result in hash */
 function result2hash ($result) {
 
-    $row = @mysql_fetch_array($result);
+    $row = @db_fetch_assoc($result);
     return($row);
 
 }
@@ -75,7 +77,7 @@ function result2hash ($result) {
 /* find number of rows in query result */
 function number_rows ($result) {
 
-    $number_rows = @mysql_num_rows($result);
+    $number_rows = @db_num_rows($result);
     return($number_rows);
 
 }
@@ -83,8 +85,9 @@ function number_rows ($result) {
 /* put rows from a column into an array */
 function column2array ($query) {
 
+    $array = array();
     $result = do_query($query);
-    while ($row = @mysql_fetch_array($result)) {
+    while ($row = @db_fetch_array($result)) {
         $array[] = $row[0];
     }
     return($array);
