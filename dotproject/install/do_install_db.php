@@ -1,5 +1,8 @@
 <?php // $Id$
-//Max Execution Time in Installation No Limit 
+
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
+
+//Max Execution Time in Installation No Limit
 set_time_limit(0);
 
 include_once 'check_upgrade.php';
@@ -22,7 +25,7 @@ $cFileMsg = 'Not Created';
 $dbErr = false;
 $cFileErr = false;
 
-$dbtype = 'mysql';
+$dbtype = 'mysqli';
 $dbprefix = trim( dPInstallGetParam( $_POST, 'dbprefix', '' ) );
 $dbhost = trim(dPInstallGetParam($_POST, 'dbhost', ''));
 $dbname = trim(dPInstallGetParam($_POST, 'dbname', ''));
