@@ -22,11 +22,7 @@
 
 ini_set('display_errors', 1);
 
-if (defined('E_DEPRECATED')) {
-	error_reporting(E_ALL & ~(E_DEPRECATED|E_NOTICE|E_STRICT));
-} else {
-	error_reporting(E_ALL & ~E_NOTICE);
-}
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
 
 if (function_exists('date_default_timezone_set')) {
   # this is a bit of a hack in that it will guess from the system what
