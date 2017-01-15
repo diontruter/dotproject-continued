@@ -142,16 +142,12 @@ function InstallLoadSql($sqlfile, $last_update = null)
  if (! file_exists($sqlfile))
 	return;
 
- $mqr = @get_magic_quotes_runtime();
- @set_magic_quotes_runtime(0);
-
  $pieces = array();
  if ($sqlfile) {
   $query = fread(fopen($sqlfile, "r"), filesize($sqlfile));
   $pieces  = InstallSplitSql($query, $last_update);
  }
 
- @set_magic_quotes_runtime($mqr);
  $errors = 0;
  $piece_count = count($pieces);
 
