@@ -3,9 +3,9 @@
 // File:        JPG-CONFIG.INC
 // Description: Configuration file for JpGraph library
 // Created:     2004-03-27
-// Ver:         $Id$
+// Ver:         $Id: jpg-config.inc.php 1871 2009-09-29 05:56:39Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 
@@ -36,8 +36,8 @@
 //
 //------------------------------------------------------------------------
 // define('CACHE_DIR','/tmp/jpgraph_cache/');
-// define('TTF_DIR','/usr/share/fonts/truetype/');
-// define('MBTTF_DIR','/usr/share/fonts/truetype/');
+// define('TTF_DIR','/usr/share/fonts/TrueType/');
+// define('MBTTF_DIR','/usr/share/fonts/TrueType/');
 
 //-------------------------------------------------------------------------
 // Cache directory specification for use with CSIM graphs that are
@@ -81,19 +81,19 @@ DEFINE("LANGUAGE_CYRILLIC",true);
 DEFINE("CYRILLIC_FROM_WINDOWS",true);
 
 // The following constant is used to auto-detect
-// whether cyrillic conversion is really necessary 
-// if enabled. Just replace 'windows-1251' with a variable 
-// containing the input character encoding string 
+// whether cyrillic conversion is really necessary
+// if enabled. Just replace 'windows-1251' with a variable
+// containing the input character encoding string
 // of your application calling jpgraph.
-// A typical such string would be 'UTF-8' or 'utf-8'. 
+// A typical such string would be 'UTF-8' or 'utf-8'.
 // The comparison is case-insensitive.
 // If this charset is not a 'koi8-r' or 'windows-1251'
 // derivate then no conversion is done.
 //
 // This constant can be very important in multi-user
 // multi-language environments where a cyrillic conversion
-// could be needed for some cyrillic people 
-// and resulting in just erraneous conversions 
+// could be needed for some cyrillic people
+// and resulting in just erraneous conversions
 // for not-cyrillic language based people.
 //
 // Example: In the free project management
@@ -188,5 +188,11 @@ define('CACHE_FILE_GROUP','www');
 // What permissions should the cached file have
 // (Set to '' will give the default persmissions for the 'PHP-user')
 define('CACHE_FILE_MOD',0664);
+
+// Default theme class name
+define('DEFAULT_THEME_CLASS', 'UniversalTheme');
+
+define('SUPERSAMPLING', true);
+define('SUPERSAMPLING_SCALE', 1);
 
 ?>
