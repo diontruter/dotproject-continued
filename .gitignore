@@ -6,3 +6,4 @@ dotproject/includes/config.php
 !dotproject/files/index.html
 !dotproject/files/temp/index.html
 dotproject/files/
+/.idea
