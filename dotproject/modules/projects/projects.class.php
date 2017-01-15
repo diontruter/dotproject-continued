@@ -298,6 +298,10 @@ class CProject extends CDpObject {
 		           ? ('(project_company IN (' . implode(',', array_keys($aCpies)) . '))')
 		           : '1 = 0');
 
+		// DT: 2017-01-15: Initialize as array if needed, otherwise database error occurs on Project Files tab
+		if (!$extra || !is_array($extra)) {
+            $extra = array();
+		}
 		$extra['where'] = (((!empty($extra['where'])) ? ($extra['where'] . ' AND ') : '')
 		                   . $buffer);
 
