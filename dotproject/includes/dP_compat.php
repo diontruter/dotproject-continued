@@ -6,6 +6,16 @@ if (!(defined('DP_BASE_DIR'))) {
 	die('You should not access this file directly.');
 }
 
+/*
+ * DT: 2017-01-15: Added mysql_pconnect wrapper for mysqli_connect since the login and lost password pages check for
+ * it. Rather than forcing all themes to be fixed, rather create a wrapper to suppress error messages.
+ */
+if (!function_exists("mysql_pconnect")){
+    function mysql_pconnect($host, $username, $password){
+        return mysqli_connect("p:" . $host, $username, $password);
+    }
+}
+
 //Checking for mb_* type functions ...
 if (!function_exists('mb_internal_encoding')) {
 	function mb_internal_encoding($encoding = null) {
