@@ -215,8 +215,8 @@ function dpSessionStart($start_vars = 'AppUI') {
 	$domain = $url_parts[2];
 	$secure = ($url_parts[1] == 'https://');
 
-	session_set_cookie_params($max_time, $cookie_dir, $domain, $secure, true);
-	
+	session_set_cookie_params($max_time);
+
 	if (is_array($start_vars)) {
 		foreach ($start_vars as $var) {
 			$_SESSION[$var] =  $GLOBALS[$var];
@@ -224,7 +224,7 @@ function dpSessionStart($start_vars = 'AppUI') {
 	} else if (!(empty($start_vars))) {
 		$_SESSION[$start_vars] =  $GLOBALS[$start_vars];
 	}
-	
+
 	session_start();
 }
 
