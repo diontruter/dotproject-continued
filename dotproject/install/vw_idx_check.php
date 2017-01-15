@@ -77,7 +77,7 @@ if ($maxfileuploadsize > 1048576) {
 <?php 
 	$sspath = ini_get('session.save_path');
 	if (! $sspath) {
-		echo "<b class='error'>$failedImg Fatal:</b> <span class='item'>session.save_path</span> <b class='error'> is not set</b>";
+		echo "<b class='ok'>$okImg Note:</b> <span class='item'>session.save_path</span> <b class='ok'> is not set, default path will be used</b>";
 	} else if (is_dir($sspath) && is_writable($sspath)) {
 		echo "<b class='ok'>$okImg</b> <span class='item'>($sspath)</span>";
 	} else {
@@ -99,7 +99,7 @@ if ($maxfileuploadsize > 1048576) {
 </tr>
 <tr>
  <td class="item"><li>MySQL Support</li></td>
-  <td align="left"><?php echo function_exists('mysql_connect') ? '<b class="ok">'.$okImg.'</b><span class="item"> ('.@mysql_get_server_info().')</span>' : '<span class="warning">'.$failedImg.' Not available</span>';?></td>
+  <td align="left"><?php echo function_exists('mysqli_connect') ? '<b class="ok">'.$okImg.'</b><span class="item"> ('.@mysqli_get_client_info().')</span>' : '<span class="warning">'.$failedImg.' Not available</span>';?></td>
 </tr>
 <tr>
             <td class="title" colspan="2"><br />Check for Directory and File Permissions</td>
