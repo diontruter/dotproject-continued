@@ -117,7 +117,11 @@ if (dPgetParam($_POST, 'lostpass', 0)) {
 if (isset($_REQUEST['login'])) {
 	$username = dPgetCleanParam($_POST, 'username', '');
 	$password = dPgetParam($_POST, 'password', '');
-	$redirect = dPgetCleanParam($_REQUEST, 'redirect', '');
+	/*
+	 * DT: 2017-01-15: The $redirect variable is passed to $AppUI->redirect($redirect) which creates a redirect by
+	 * concatenating index.php and $redirect. Therefore do not use dPgetCleanParam as it escapes ampersands.
+	 */
+	$redirect = dPgetParam($_REQUEST, 'redirect', '');
 	$AppUI->setUserLocale();
 	@include_once(DP_BASE_DIR . '/locales/' . $AppUI->user_locale . '/locales.php');
 	@include_once DP_BASE_DIR . '/locales/core.php';
