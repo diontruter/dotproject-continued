@@ -75,7 +75,14 @@ if (intval($obj->task_end_date)) {
 	} elseif (intval($project->project_end_date)) {
 		$end_date = new CDate($project->project_end_date);
 	} else {
-		$end_date = null;
+	    // If there is nothing to base the end date on, make it a week after the start date.
+        // No more having to pick an arbitrary date for every task if you are quickly creating tasks.
+	    if ($start_date) {
+            $end_date = clone $start_date;
+            $end_date->addDays(7);
+        } else {
+            $end_date = null;
+        }
 	}
 } else {
 	$end_date = null;
@@ -175,7 +182,7 @@ if ($can_edit_time_information) {
 <tr>
 	<td align="right" nowrap="nowrap"><?php echo $AppUI->_('Expected Duration');?>:</td>
 	<td nowrap="nowrap">
-		<input type="text" class="text" name="task_duration" maxlength="8" size="6" value="<?php echo isset($obj->task_duration) ? $obj->task_duration : 1;?>" />
+		<input type="text" class="text" name="task_duration" maxlength="8" size="6" value="<?php echo isset($obj->task_duration) ? $obj->task_duration : 0;?>" />
 	<?php
 	echo arraySelect($durnTypes, 'task_duration_type', 'class="text"', 
 					 $obj->task_duration_type, true);

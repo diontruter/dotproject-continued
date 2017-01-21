@@ -104,7 +104,7 @@ class CTask extends CDpObject
 		if ($this->task_milestone) {
 			$this->task_duration = '0';
 		} else if (!($this->task_duration)) {
-			$this->task_duration = '1';
+			$this->task_duration = '0';
 		}
 		if (!$this->task_creator) {
 			$this->task_creator = $AppUI->user_id;
