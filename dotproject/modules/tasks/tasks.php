@@ -259,17 +259,20 @@ if ($project_id && $showIncomplete) {
 	$where .= ' AND (task_percent_complete < 100 or task_percent_complete is null)';
 }
 
-$task_status = 0;
-if ($min_view && isset($_GET['task_status'])) {
-	$task_status = intval(dPgetParam($_GET, 'task_status', null));
-} else if (!($currentTabName)) {
+// Only filter to a specific status if a specific status is requested, otherwise custom statuses will never show
+$task_status = '<> -1';
+if (!($currentTabName)) {
 	// If we aren't tabbed we are in the tasks list.
-	$task_status = intval($AppUI->getState('inactive'));
+	$stored_status = intval($AppUI->getState('inactive'));
+	// Only filter to a specific status if inactive task list is requested, otherwise custom statuses will never show
+	if ($stored_status == -1) {
+        $task_status = '= -1';
+    }
 } else if (mb_stristr($currentTabName, 'inactive')) {
-	$task_status = '-1';
+	$task_status = '= -1';
 }
 
-$where .= ' AND task_status = ' . $task_status;
+$where .= ' AND task_status ' . $task_status;
 
 // patch 2.12.04 text search
 if ($search_text = $AppUI->getState('searchtext')) {

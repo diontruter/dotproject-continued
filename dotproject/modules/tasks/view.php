@@ -494,11 +494,12 @@ if (count($obj->getChildren()) > 0) {
 	$f = 'children';
 	$min_view = true;
 	$tabBox_show = 1;
-	// in the tasks file there is an if that checks
-	// $_GET[task_status]; this patch is to be able to see
-	// child tasks withing an inactive task
-	$_GET['task_status'] = $obj->task_status;
 	$tabBox->add(DP_BASE_DIR.'/modules/tasks/tasks', 'Child Tasks');
+    $tabBox->add(DP_BASE_DIR.'/modules/tasks/tasks', 'Child Tasks (Inactive)');
+} else {
+    if (!isset($_GET['tab'])) {
+        $tabBox->active = 0;
+    }
 }
 
 if ($tabBox->loadExtras($m, $a)) {
