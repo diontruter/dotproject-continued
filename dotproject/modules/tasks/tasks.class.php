@@ -3037,7 +3037,7 @@ function sort_by_item_title($title, $item_name, $item_type) {
 	/* flip the sort order for the link */
 	$item_order = ($item_order == SORT_ASC) ? SORT_DESC : SORT_ASC;
 	
-	$link = '<a href="./index.php?';
+	$link = './index.php?';
 	$not_first = 0;
 	foreach ($_GET as $var => $val) {
 		if (!(in_array($var, array('task_sort_item1', 'task_sort_type1', 'task_sort_order1', 
@@ -3067,11 +3067,9 @@ function sort_by_item_title($title, $item_name, $item_type) {
 			$link .= '&task_sort_order2=' . ${'task_sort_order' . $item_num};
 		}
 	}
-	$link .= '" class="hdr">';
-	
-	$link .= $AppUI->_($title);
-	
-	$link .= '</a>';
-	echo dPsanitiseHTML($link);
-}
 
+    // First sanitise the link URL then build the anchor element around it as dPsanitiseHTML will
+    // otherwise eliminate the surrounding anchor element.
+    $link = '<a href="' . dPsanitiseHTML($link) . '" class="hdr">' . $AppUI->_($title) . '</a>';
+	echo $link;
+}
