@@ -81,7 +81,7 @@ function setCalendar(idate, fdate) {
 		<input type="checkbox" name="log_all_projects" id="log_all_projects" value="1" <?php if ($log_all_projects) echo 'checked="checked"' ?> />
 		<label for="log_all_projects"><?php echo $AppUI->_('Log All Projects');?></label>
 	   <input type="checkbox" name="use_assigned_percentage" id="use_assigned_percentage" value="1" <?php if ($use_assigned_percentage) echo 'checked="checked"' ?> />
-	   <labe for="use_assigned_percentage"><?php echo $AppUI->_('Use assigned percentage');?></label>
+	   <label for="use_assigned_percentage"><?php echo $AppUI->_('Use assigned percentage');?></label>
 	
 	   <input type="checkbox" name="hideNonWd" id="hideNonWd" value="1" <?php if ($hideNonWd) echo 'checked="checked"' ?> />
 	   <label for="hideNonWd"><?php echo $AppUI->_('Hide non-working days');?></label>
