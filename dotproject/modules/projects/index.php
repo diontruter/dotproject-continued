@@ -93,6 +93,8 @@ $q->addJoin('contacts', 'c', 'c.contact_id = u.user_contact');
 $q->addQuery('user_id');
 $q->addQuery("CONCAT(contact_last_name, ', ', contact_first_name, ' (', user_username, ')')" 
              . ' AS label');
+$q->addWhere('contact_private = 0 OR (contact_private = 1 AND contact_owner = '
+    . $AppUI->user_id . ') OR contact_owner IS NULL OR contact_owner = 0');
 $q->addOrder('contact_last_name, contact_first_name, user_username');
 $userRows = array(0 => $AppUI->_('All Users', UI_OUTPUT_RAW)) + $q->loadHashList();
 $bufferUser = arraySelect($userRows, 'show_owner', 

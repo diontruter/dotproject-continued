@@ -53,7 +53,8 @@ class CTabBox extends CTabBox_core {
 			$s = '<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="tabbed view">' . "\n";
 			$s .= '<tr><td>' . "\n" .'<table border="0" cellpadding="0" cellspacing="0"><tr>' . "\n";
 			
-			if (count($this->tabs)-1 < $this->active) {
+			// DT: The 500 below is to deal with the odd first tab number (500) on the project list page
+			if (count($this->tabs)-1 < $this->active && $this->active != 500) {
 				//Last selected tab is not available in this view. eg. Child tasks
 				$this->active = 0;
 			}

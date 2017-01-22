@@ -167,6 +167,16 @@ function setDept(key, val) {
 	}
 ?>
 	</td></tr>
+    <?php if (@$user['user_username'] && @$user['contact_private']): ?>
+        <?php $ownerName = dPgetUsernameFromID(@$user['contact_owner']); ?>
+        <tr>
+            <td></td>
+            <td class="warning">
+                <strong> <?php echo $AppUI->_('Private Entry'); ?> - <?php echo $ownerName; ?> </strong>
+            </td>
+        </tr>
+    <?php endif; ?>
+
 <?php if ($canEdit) { // prevent users without read-write permissions from seeing and editing user type
 ?>
 <tr>

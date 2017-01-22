@@ -3,6 +3,10 @@ if (!defined('DP_BASE_DIR')) {
   die('You should not access this file directly.');
 }
 
+// Load the users
+$perms =& $AppUI->acl();
+$users = $perms->getPermittedUsers();
+
 $contact_id = intval(dPgetParam($_GET, 'contact_id', 0));
 $company_id = intval(dPgetParam($_REQUEST, 'company_id', 0));
 $company_name = dPgetCleanParam($_REQUEST, 'company_name', null);
@@ -150,7 +154,6 @@ function companyChange() {
 	<input type="hidden" name="contact_project" value="0" />
 	<input type="hidden" name="contact_unique_update" value="<?php echo uniqid("");?>" />
 	<input type="hidden" name="contact_id" value="<?php echo $contact_id;?>" />
-	<input type="hidden" name="contact_owner" value="<?php echo $row->contact_owner ? $row->contact_owner : $AppUI->user_id;?>" />
 
 <table border="0" cellpadding="4" cellspacing="0" width="100%" class="std" summary="contact information">
 <tr>
@@ -181,6 +184,15 @@ function companyChange() {
 				<input type="checkbox" value="1" name="contact_private" id="contact_private" <?php echo (@$row->contact_private ? 'checked="checked"' : '');?> />
 			</td>
 		</tr>
+        <tr>
+            <td align="right" width="100"><label for="contact_owner"><?php echo $AppUI->_('Owner');?>:</label> </td>
+            <td>
+                <?php echo arraySelect(
+                    $users, 'contact_owner', 'class="text"',
+                    isset($row->contact_owner) ? $row->contact_owner : $AppUI->user_id
+                ); ?>
+            </td>
+        </tr>
 		</table>
 	</td>
 </tr>
