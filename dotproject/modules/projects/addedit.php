@@ -28,14 +28,20 @@ $companies_internal = $row->listCompaniesByType(array('6'));
 $companies_internal = arrayMerge(array('0'=>''), $companies_internal);
 
 // pull users
-$q = new DBQuery;
-$q->addTable('users','u');
-$q->addTable('contacts','con');
-$q->addQuery('user_id');
-$q->addQuery('CONCAT_WS(", ",contact_last_name,contact_first_name)');
-$q->addOrder('contact_last_name');
-$q->addWhere('u.user_contact = con.contact_id');
-$users = $q->loadHashList();
+$q	= new DBQuery;
+$q->addTable('users');
+$q->addQuery('user_id,'
+    . ' concat_ws(" ", contact_first_name, contact_last_name) as contact_name');
+$q->addJoin('contacts', 'con', 'contact_id = user_contact');
+$q->addWhere('contact_private = 0 OR (contact_private = 1 AND contact_owner = '
+    . $AppUI->user_id . ') OR contact_owner IS NULL OR contact_owner = 0');
+$q->addOrder('contact_first_name, contact_last_name');
+$res = $q->exec();
+$users = array();
+while ($row = $q->fetchRow()) {
+    $users[$row['user_id']] = $row['contact_name'];
+}
+$q->clear();
 
 // load the record data
 $row = new CProject();

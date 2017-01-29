@@ -337,11 +337,11 @@ class dPacl extends gacl_api {
 		$q	= new DBQuery;
 		$q->addTable('users');
 		$q->addQuery('user_id,' 
-		             . ' concat_ws(", ", contact_last_name, contact_first_name) as contact_name');
+		             . ' concat_ws(" ", contact_first_name, contact_last_name) as contact_name');
 		$q->addJoin('contacts', 'con', 'contact_id = user_contact');
         $q->addWhere('contact_private = 0 OR (contact_private = 1 AND contact_owner = '
             . $AppUI->user_id . ') OR contact_owner IS NULL OR contact_owner = 0');
-		$q->addOrder('contact_last_name');
+		$q->addOrder('contact_first_name, contact_last_name');
 		$res = $q->exec();
 		$userlist = array();
 		while ($row = $q->fetchRow()) {
